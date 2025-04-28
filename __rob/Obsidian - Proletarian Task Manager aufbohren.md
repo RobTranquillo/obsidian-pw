@@ -26,3 +26,7 @@ bauen und kopieren nach obsidian:
 # Plugin builden und in Obsidian kopieren
 
 `% ./runme.sh`
+
+# Plugin Darstellung verändern
+
+CSS Klasse `.pw-todo-container` sind die einzelnen todos im Backlog
