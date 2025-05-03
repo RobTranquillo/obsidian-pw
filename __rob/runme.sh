@@ -26,6 +26,7 @@ fi
 # copy to /dist
 mkdir -p "$DIST_DIR"
 cp main.js "$DIST_DIR"
+cp styles.css "$DIST_DIR"
 
 # copy to Obsidian
 mkdir -p "$TARGET_DIR"
