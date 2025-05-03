@@ -27,11 +27,19 @@
 }
 
 .pw-todo-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
     cursor: pointer;
     /* display: inline; */
     flex-direction: row;
+    /* cut long text */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
+.pw-todo-container:nth-child(odd) {
+    background-color: var(--theme-color-translucent-01);
+}
 .pw-todo-container:hover {
     border-color: var(--background-modifier-border-hover);
     background-color: var(--background-modifier-hover);
@@ -66,7 +74,7 @@
 }
 
 .pw-planning-column {
-    width: 260px;
+    width: 100%;
     margin: 5px;
     display: inline-block;
     height: 260px;
