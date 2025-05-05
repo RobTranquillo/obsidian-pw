@@ -159,3 +159,18 @@
 .pw-error {
     color: var(--background-modifier-error)
 }
+
+.pw-collapse-button {
+    background: none;
+    border: none;
+    color: var(--text-normal);
+    font-size: 0.5em;
+    cursor: pointer;
+    padding: var(--size-2-1) var(--size-2-3);
+    margin-left: auto;
+    float: right;
+}
+
+.pw-collapse-button:hover {
+    color: var(--text-accent);
+}

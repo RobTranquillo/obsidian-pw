@@ -59,6 +59,12 @@ export function PlanningComponent({deps, settings, app}: PlanningComponentProps)
     })
   }, [deps.todoIndex]);
 
+  const [isTodayCollapsed, setIsTodayCollapsed] = React.useState(false);
+
+  function toggleTodayCollapse() {
+    setIsTodayCollapsed(!isTodayCollapsed);
+  }
+
   function getTodosByDate(from: DateTime | null, to: DateTime | null, includeSelected: boolean = false): TodoItem<TFile>[] {
     const dateIsInRange = (date: DateTime | null) => date && (from === null || date >= from) && (to === null || date < to)
     function todoInRange<T>(todo: TodoItem<T>){
@@ -283,22 +289,34 @@ export function PlanningComponent({deps, settings, app}: PlanningComponentProps)
       moveToDate(bracketStart));
   }
 
-  deps.logger.debug(`Rendering planning view`)
+  deps.logger.debug(`Rendering planning view`);
 
-  return <>
-    <div className={`pw-planning-today ${getTodayWipStyle()}`}>
-      <h1><span className="pw-planning-today-icon">☀️</span> Today</h1>
-      {Array.from(getTodayColumns())}
-    </div>
-    <div>
-      {Array.from(getColumns())}
-    </div>
-    <PlanningSettingsComponent
-      planningSettings={planningSettings}
-      setPlanningSettings={setPlanningSettings}
+  return (
+    <>
+      <div className={`pw-planning-today ${getTodayWipStyle()}`}>
+      <button
+            className="pw-collapse-button"
+            onClick={toggleTodayCollapse}
+            aria-label={isTodayCollapsed ? "Expand Today" : "Collapse Today"}
+          >
+            {isTodayCollapsed ? "➕" : "➖"}
+          </button>
+        <h1 style={{ fontSize: isTodayCollapsed ? "1.2em" : "" }}>
+          <span className="pw-planning-today-icon">☀️</span>
+          Today
+        </h1>
+        {!isTodayCollapsed && Array.from(getTodayColumns())}
+      </div>
+      <div>
+        {Array.from(getColumns())}
+      </div>
+      <PlanningSettingsComponent
+        planningSettings={planningSettings}
+        setPlanningSettings={setPlanningSettings}
       />
-    <SoundPlayer deps={deps} playSound={playSound}></SoundPlayer>
-  </>;
+      <SoundPlayer deps={deps} playSound={playSound}></SoundPlayer>
+    </>
+  );
 }
 
 export function MountPlanningComponent(onElement: HTMLElement, props: PlanningComponentProps) {
